@@ -21,7 +21,7 @@ DUDE_MCU=atmega168
 #MMCU=atmega8515
 
 CFLAGS=\
--I ~/i/installs/Nim/lib -g -mmcu=${MMCU} -DNIM_INTBITS=16
+-I ~/i/installs/Nim/lib -g -mmcu=${MMCU}
 #\
 #-O3       \
 #-fpack-struct -fshort-enums               \
@@ -51,7 +51,8 @@ blink5.c
 
 TARGET=${SOURCE:.c=.hex}
 
-OBJ=${SOURCE:.c=.o} nimcache/stdlib_system.o nimcache/stdlib_unsigned.o
+OBJ=${SOURCE:.c=.o}
+# nimcache/stdlib_system.o nimcache/stdlib_unsigned.o
 #${ASM:.S=.o}
 
 BIN=${SOURCE:.c=.bin}

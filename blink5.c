@@ -16,9 +16,9 @@ NIM_EXTERNC N_NOINLINE(void, stdlib_unsignedDatInit)(void);
 NIM_EXTERNC N_NOINLINE(void, blinkInit)(void);
 NIM_EXTERNC N_NOINLINE(void, blinkDatInit)(void);
 
-static N_INLINE(void, nimFrame)(TFrame* s) {}
+//static N_INLINE(void, nimFrame)(TFrame* s) {}
 
-static N_INLINE(void, popFrame)(void) {}
+//static N_INLINE(void, popFrame)(void) {}
 
 N_NIMCALL(void, blank_25018)(void) {
 	NU16 delay;
@@ -99,5 +99,5 @@ NIM_EXTERNC N_NOINLINE(void, blinkInit)(void) {
 NIM_EXTERNC N_NOINLINE(void, blinkDatInit)(void) {
 }
 
-//#include "nimcache/stdlib_system.c"
-//#include "nimcache/stdlib_unsigned.c"
+#include "nimcache/stdlib_system.c"
+#include "nimcache/stdlib_unsigned.c"
