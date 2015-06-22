@@ -1,4 +1,5 @@
 #include <stdint.h>
+#define PORTB (*(volatile uint8_t*)(0x05 + 0x20))
 int main(void) {
     int delay;
     
