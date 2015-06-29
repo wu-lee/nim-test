@@ -9,35 +9,38 @@ type
 
 #proc blink() = 
 #  echo "blink"
+#proc main {.exportc: "_start".} =
+#  discard blank
 
-proc blank() =
+#proc NimMain() {.importc, cdecl.}
+
+#proc blank(x:int) :int
+
+#proc main() : int {.cdecl, exportc: "main".} =
+#  var foo = blank(1)
+#  return 0
+
+proc blank(x:int) :int =
   var
-    delay : uint16 = 1000
+    delay : uint16
     value : uint8 = 0
     DDRB {.volatile.} : byteaddr = cast[byteaddr](DDRBaddr)
     PORTB {.volatile.} : byteaddr = cast[byteaddr](PORTBaddr)
 
-#proc DDRB(value: uint8) = 
-#  cast[ptr uint8](DDRBaddr) = value
-
-#proc PORTB(value: uint8) = 
-#  cast[ptr uint8](PORTBaddr) = value
-
 
   # Set pin 5 of port b for output
-  DDRB[] = 0
-  PORTB[] = 255
+  DDRB[] = 255
 
   while true:
-    PORTB[] = value
     value = not value
     delay = 32000
     while delay != 0:
       delay -= 1
+    PORTB[] = value
+  return 0
 
+proc exit() {.exportc.} =
+  discard blank(2)
 
-discard blank
-  
-  
-  
+discard blank(3)
 

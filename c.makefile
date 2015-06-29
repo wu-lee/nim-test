@@ -21,7 +21,7 @@ DUDE_MCU=atmega168
 #MMCU=atmega8515
 
 CFLAGS=\
--I ~/i/installs/Nim/lib -g -mmcu=${MMCU}
+-I ~/i/installs/Nim/lib -g -mmcu=${MMCU} -Wl,--verbose
 #\
 #-O3       \
 #-fpack-struct -fshort-enums               \
@@ -41,7 +41,7 @@ ASFLAGS=\
 #IBMPCFont.c \
 
 SOURCE=\
-blink5.c
+nimcache/blink.c
 
 #tests.c
 
@@ -51,9 +51,10 @@ blink5.c
 
 TARGET=${SOURCE:.c=.hex}
 
-OBJ=${SOURCE:.c=.o}
-# nimcache/stdlib_system.o nimcache/stdlib_unsigned.o
+OBJ=${SOURCE:.c=.o} nimcache/stdlib_system.o nimcache/stdlib_unsigned.o
 #${ASM:.S=.o}
+
+SOURCE2 = nimcache/stdlib_system.c nimcache/stdlib_unsigned.c
 
 BIN=${SOURCE:.c=.bin}
 
@@ -67,8 +68,8 @@ BIN=${SOURCE:.c=.bin}
 all: ${TARGET}
 
 
-${BIN}: ${OBJ}
-	${CC} ${OBJ} -o $@ 
+${BIN}: ${SOURCE} ${SOURCE2}
+	${CC} ${CFLAGS} $^ -o $@ 
 
 
 ${TARGET}: ${BIN}
@@ -83,4 +84,4 @@ list-devices:
 	avrdude -p ${DUDE_MCU} -c ${PROGRAMMER} -e -U flash:w:${TARGET} -v -P usb:xx
 
 clean:
-	rm -f ${TARGET} ${OBJ}
+	rm -f ${TARGET} ${OBJ} ${BIN}

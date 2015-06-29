@@ -3,11 +3,10 @@
 /* The generated code is subject to the original license. */
 /* Compiled for: Standalone, avr, gcc */
 /* Command for C compiler:
-   avr-gcc -c  -mmcu=atmega168 -fno-freestanding -w -O3 -fno-strict-aliasing  -I/data/nick/i/installs/Nim/lib -o /data/nick/i/gitworking/noofac/nim-test/nimcache/blink.o /data/nick/i/gitworking/noofac/nim-test/nimcache/blink.c */
+   avr-gcc -c  -mmcu=atmega168 -w -O3 -fno-strict-aliasing  -I/data/nick/i/installs/Nim/lib -o /data/nick/i/gitworking/noofac/nim-test/nimcache/blink.o /data/nick/i/gitworking/noofac/nim-test/nimcache/blink.c */
 #define NIM_INTBITS 16
 #include "nimbase.h"
-void flash();
-N_NIMCALL(void, blank_25018)(void);
+N_NIMCALL(NI, blank_25018)(NI x);
 NIM_EXTERNC N_NOINLINE(void, systemInit)(void);
 NIM_EXTERNC N_NOINLINE(void, systemDatInit)(void);
 NIM_EXTERNC N_NOINLINE(void, stdlib_unsignedInit)(void);
@@ -15,20 +14,22 @@ NIM_EXTERNC N_NOINLINE(void, stdlib_unsignedDatInit)(void);
 NIM_EXTERNC N_NOINLINE(void, blinkInit)(void);
 NIM_EXTERNC N_NOINLINE(void, blinkDatInit)(void);
 
-N_NIMCALL(void, blank_25018)(void) {
+N_NIMCALL(NI, blank_25018)(NI x) {
+	NI result;
 	NU16 delay;
+	NU16 delay2;
 	NU8 value;
 	NU8* volatile Ddrb;
 	NU8* volatile Portb;
-	delay = ((NU16) 1000);
+{	result = 0;
+	delay = 0;
+	delay2 = 0;
 	value = ((NU8) 0);
 	Ddrb = ((NU8*) 36);
 	Portb = ((NU8*) 37);
-	(*Ddrb) = ((NU8) 0);
-	(*Portb) = ((NU8) 255);
+	(*Ddrb) = ((NU8) 255);
 	{
 		while (1) {
-			(*Portb) = value;
 			value = (NU8)((NU8) ~(value));
 			delay = ((NU16) 32000);
 			{
@@ -37,8 +38,13 @@ N_NIMCALL(void, blank_25018)(void) {
 					delay -= ((NI) 1);
 				} LA4: ;
 			}
+			(*Portb) = value;
 		}
 	}
+	result = ((NI) 0);
+	goto BeforeRet;
+	}BeforeRet: ;
+	return result;
 }
 void PreMainInner() {
 	systemInit();
@@ -68,29 +74,15 @@ N_CDECL(void, NimMain)(void) {
 	(*inner)();
 }
 
-
-#include <stdint.h>
-#define PORTB (*(volatile uint8_t*)(0x05 + 0x20))
-void flash(void) {
-    int delay, delay2;
-    
-    while(1) {
-
-	for(delay = 0; delay < 10; delay++) 	
-	for(delay2 = 0; delay2 < 32000; delay2++) ;
-	
-	PORTB = PORTB ^ (1 << 5);
-	
-    }
-}
-
-N_CDECL(void, NimMain)(void);
 int main(void) {
 	NimMain();
 	return 0;
 }
 
 NIM_EXTERNC N_NOINLINE(void, blinkInit)(void) {
+	NI LOC1;
+	LOC1 = 0;
+	LOC1 = blank_25018(((NI) 3));
 }
 
 NIM_EXTERNC N_NOINLINE(void, blinkDatInit)(void) {
