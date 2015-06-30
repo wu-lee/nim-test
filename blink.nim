@@ -6,20 +6,6 @@ const
 type
   byteaddr = ptr uint8
 
-
-#proc blink() = 
-#  echo "blink"
-#proc main {.exportc: "_start".} =
-#  discard blank
-
-#proc NimMain() {.importc, cdecl.}
-
-#proc blank(x:int) :int
-
-#proc main() : int {.cdecl, exportc: "main".} =
-#  var foo = blank(1)
-#  return 0
-
 proc blank(x:int) :int =
   var
     delay : uint16
@@ -38,9 +24,6 @@ proc blank(x:int) :int =
       delay -= 1
     PORTB[] = value
   return 0
-
-proc exit() {.exportc.} =
-  discard blank(2)
 
 discard blank(3)
 

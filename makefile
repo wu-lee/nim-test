@@ -69,7 +69,7 @@ all: ${TARGET}
 #	${CC} ${OBJ} -o $@ 
 
 ${BIN}: ${SOURCE}
-	nim c --cpu:avr --os:standalone --deadCodeElim:on --d:release --parallelBuild:1 --gc:none  -o:$@ $<
+	nim c --cpu:avr --os:standalone --deadCodeElim:on  --parallelBuild:1 --gc:none  -o:$@ $<
 
 ${TARGET}: ${BIN}
 	avr-objcopy -j .text -j .data -O ihex $< $@
