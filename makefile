@@ -84,3 +84,6 @@ list-devices:
 
 clean:
 	rm -f ${TARGET} ${BIN} ${OBJ}
+
+sim: ${BIN}
+	simulavr -d atmega128 -g ${BIN} 
